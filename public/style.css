@@ -39,9 +39,9 @@ body {  /* Corpo inteiro do site */
   background: var(--surf);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 42px 38px;
-  width: 100%;
-  max-width: 390px;
+  padding: 42px 58px;
+  
+  width: 590px;
   box-shadow: 0 20px 60px rgba(42, 54, 61, 0.55);
 }
 
