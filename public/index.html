@@ -167,7 +167,7 @@
             <span class="ico">🛰️</span>
             <div class="lbl">Peças</div>
             <div class="val" id="s-piz">—</div>
-            <div class="sub">no cardápio</div>
+            <div class="sub">no menu</div>
           </div>
 
           <!-- Área de visualização das Entregas -->
@@ -383,7 +383,7 @@
         </div>
 
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-          <span style="font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px">Mesa:</span>
+          <span style="font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px">setor:</span>
           <div style="display:flex;gap:5px;flex-wrap:wrap" id="mesa-botoes"></div>
           <button class="btn btn-ghost btn-sm" onclick="carregarMesas(null)">Todas</button> <!--Botão para carregar todas as mesas-->
         </div>
@@ -407,11 +407,11 @@
 
   <div class="modal">
 
-    <h3 id="m-pizza-t">Nova Pizza</h3>
+    <h3 id="m-pizza-t">Nova Peça</h3>
     <input type="hidden" id="p-id">
 
     <div class="fr2">
-      <div class="fg"><label>Nome *</label><input id="p-nome" placeholder="Ex: Calabresa"></div>  <!--Caixa de entrada para inserir no nome da pizza-->
+      <div class="fg"><label>Nome *</label><input id="p-nome" placeholder="Ex: Correia"></div>  <!--Caixa de entrada para inserir no nome da pizza-->
 
       <div class="fg"><label>Categoria</label>
 
@@ -505,7 +505,7 @@
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 68px 58px 68px 30px;gap:6px;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;padding:0 1px">
-      <span>Pizza</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> <!--Caixa de entrada para inserir os itens do pedido desejado -->
+      <span>Ppeça</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> <!--Caixa de entrada para inserir os itens do pedido desejado -->
       <button class="btn btn-ghost btn-sm" onclick="addItem()">+ Peças</button> <!-- Botão para adicionar pizza -->
     </div>
 
@@ -522,7 +522,7 @@
       <div class="fg" id="wrap-troco" style="display:none"><label>Troco para (R$)</label><input id="ped-troco" type="number" min="0" step="1" placeholder="Ex: 100"></div> <!--Caixa de entrada para selecionar o troco-->
     </div>
 
-    <div class="fg"><label>Observações</label><textarea id="ped-obs" rows="2" placeholder="Sem cebola, massa fina..."></textarea></div> <!--Caixa de entrada para adicionar as obeservações do pedidos -->
+    <div class="fg"><label>Observações</label><textarea id="ped-obs" rows="2" placeholder="cuidao ao anusear..."></textarea></div> <!--Caixa de entrada para adicionar as obeservações do pedidos -->
 
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="fechar('m-pedido')">Cancelar</button> <!-- Botão para cancelar o pedido-->
@@ -575,7 +575,7 @@
       <div class="fg"><label>Nome *</label><input id="u-nome" placeholder="Nome completo"></div> <!--Caixa de entrada para inserir o nome completo -->
 
       <!--Caixa de entrada para inserir o perfil do novo usuário -->
-      <div class="fg"><label>Perfil</label><select id="u-perfil"><option value="Atendente">Atendente</option><option value="Garcom">entregador</option><option value="Administrador">Administrador</option></select></div>
+      <div class="fg"><label>Perfil</label><select id="u-perfil"><option value="Atendente">Funcionario</option><option value="Entregador">entregador</option><option value="Administrador">Administrador</option></select></div>
     </div>
 
     <div class="fg"><label>E-mail *</label><input id="u-email" type="email" placeholder="usuario@pizzaria.com"></div> <!--Caixa de entrada para inserir o email -->
