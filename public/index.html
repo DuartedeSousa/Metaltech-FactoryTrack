@@ -99,9 +99,9 @@
         <span class="ic">🔐</span><span>Usuários</span>
       </button>
 
-       <!-- Visualizar Mesas -->
-      <div class="sb-group" id="sb-group-garcom" style="display:none">Mesas</div>
-      <button class="nav-btn" id="btn-nav-mesas" onclick="ir('mesas',this)"
+       <!-- Visualizar setores -->
+      <div class="sb-group" id="sb-group-gestor" style="display:none">setores</div>
+      <button class="nav-btn" id="btn-nav-setores" onclick="ir('setores',this)"
         style="display:none">
         <span class="ic">🛠️</span><span>Setores</span>
       </button>
@@ -331,16 +331,16 @@
   <!-- // ==================================  setores ============================= // -->
 
 
-    <section id="pg-mesas" class="secao">
+    <section id="pg-setores" class="secao">
 
       <div class="pg-header">
 
         <div>
           <h2>Setores</h2>
-          <p id="mesas-sub">Seus pedidos ativos</p>
+          <p id="setores-sub">Seus pedidos ativos</p>
         </div>
 
-        <button class="btn btn-red" onclick="abrirPedidoMesa()">+ Novo Pedido</button> <!--Botão para fazer um novo pedido-->
+        <button class="btn btn-red" onclick="abrirPedidosetor()">+ Novo Pedido</button> <!--Botão para fazer um novo pedido-->
       </div>
 
       <div class="pg-body">
@@ -355,11 +355,11 @@
             <div class="sub" id="g-ped-sub">hoje</div>
           </div>
           
-          <!-- Área de visualizar as mesas ativas-->
+          <!-- Área de visualizar as setores ativas-->
           <div class="stat cg">
             <span class="ico">🛠️</span>
             <div class="lbl">Setores ativos</div>
-            <div class="val" id="g-mesas">—</div>
+            <div class="val" id="g-setores">—</div>
             <div class="sub">com pedido aberto</div>
           </div>
 
@@ -384,12 +384,12 @@
 
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
           <span style="font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px">setor:</span>
-          <div style="display:flex;gap:5px;flex-wrap:wrap" id="mesa-botoes"></div>
-          <button class="btn btn-ghost btn-sm" onclick="carregarMesas(null)">Todas</button> <!--Botão para carregar todas as mesas-->
+          <div style="display:flex;gap:5px;flex-wrap:wrap" id="setor-botoes"></div>
+          <button class="btn btn-ghost btn-sm" onclick="carregarsetores(null)">Todas</button> <!--Botão para carregar todas as setores-->
         </div>
 
-        <div id="grid-mesas" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;">
-          <div class="spin-wrap"><div class="spin"></div> Carregando...</div> <!--Carregando as mesas-->
+        <div id="grid-setores" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;">
+          <div class="spin-wrap"><div class="spin"></div> Carregando...</div> <!--Carregando as setores-->
         </div>
 
       </div>
@@ -591,18 +591,18 @@
 </div>
 <!-- // ==================================  FIM NOVO USUÁRIO ============================= // -->
 
-<!-- // ==================================  PEDIDO DE MESA ============================= // -->
-<div id="m-pedido-mesa" class="modal-bg">
+<!-- // ==================================  PEDIDO DE setor ============================= // -->
+<div id="m-pedido-setor" class="modal-bg">
 
   <div class="modal lg">
 
-    <h3>Pedido de Mesa</h3>
+    <h3>Pedido de setor</h3>
 
-    <div class="fr2"><!--Selecionar a mesa-->
+    <div class="fr2"><!--Selecionar a setor-->
 
-      <!--Caixa de entrada para inserir qual mesa deseja -->
-      <div class="fg"><label>setores *</label><select id="pm-mesa"><option value="">— Selecione o setor —</option><option value="1">setor 1</option><option value="2">setor 2</option><option value="3">setor 3</option><option value="4">setor 4</option><option value="5">setor 5</option><option value="6">setor 6</option><option value="7">setor 7</option><option value="8">setor 8</option><option value="9">setor 9</option><option value="10">setor 10</option></select></div>
-      <div class="fg"><label>Cliente (opcional)</label><select id="pm-cli"><option value="">— Sem cadastro —</option></select></div> <!--Caixa de entrada para inserir o cliente que vai ocupar a mesa -->
+      <!--Caixa de entrada para inserir qual setor deseja -->
+      <div class="fg"><label>setores *</label><select id="pm-setor"><option value="">— Selecione o setor —</option><option value="1">setor 1</option><option value="2">setor 2</option><option value="3">setor 3</option><option value="4">setor 4</option><option value="5">setor 5</option><option value="6">setor 6</option><option value="7">setor 7</option><option value="8">setor 8</option><option value="9">setor 9</option><option value="10">setor 10</option></select></div>
+      <div class="fg"><label>Cliente (opcional)</label><select id="pm-cli"><option value="">— Sem cadastro —</option></select></div> <!--Caixa de entrada para inserir o cliente que vai ocupar a setor -->
     </div>
 
     <div class="div"></div>
@@ -610,7 +610,7 @@
    
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
       <label style="margin-bottom:0;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">Itens do Pedido</label>  
-      <button class="btn btn-ghost btn-sm" onclick="addItemMesa()">+ peca</button>  <!--Botão para adiconar os itens selecionados-->
+      <button class="btn btn-ghost btn-sm" onclick="addItemsetor()">+ peca</button>  <!--Botão para adiconar os itens selecionados-->
     </div>
 
 
@@ -618,7 +618,7 @@
       <span>peca</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> 
     </div>
 
-    <div id="itens-mesa-lista"></div>
+    <div id="itens-setor-lista"></div>
 
     <div class="total-box"> <!-- Valores do pedido -->
       <div class="row"><span>Subtotal</span><span id="pm-sub">R$ 0,00</span></div>
@@ -628,23 +628,23 @@
     <div class="fg"><label>Observações</label><textarea id="pm-obs" rows="2" placeholder="Manusear com cuidado..."></textarea></div> <!-- Caixa de texto para inserir as observações do pedido -->
 
     <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="fechar('m-pedido-mesa')">Cancelar</button> <!--Botão para cancelar o pedido-->
-      <button class="btn btn-red"   onclick="salvarPedidoMesa()">Confirmar Pedido</button> <!--Botão para confirmar o pedido-->
+      <button class="btn btn-ghost" onclick="fechar('m-pedido-setor')">Cancelar</button> <!--Botão para cancelar o pedido-->
+      <button class="btn btn-red"   onclick="salvarPedidosetor()">Confirmar Pedido</button> <!--Botão para confirmar o pedido-->
     </div>
 
   </div>
 </div>
 
-<!-- // ================================== FIM PEDIDO DE MESA ============================= // -->
+<!-- // ================================== FIM PEDIDO DE setor ============================= // -->
 
-<!-- // ==================================  FECHAR MESA ============================= // -->
+<!-- // ==================================  FECHAR setor ============================= // -->
 
 
-<div id="m-fechar-mesa" class="modal-bg">
+<div id="m-fechar-setor" class="modal-bg">
 
   <div class="modal" style="max-width:440px">
 
-    <h3 id="fm-titulo">Fechar Mesa</h3>
+    <h3 id="fm-titulo">Fechar setor</h3>
     <div id="fm-resumo" style="margin-bottom:12px"></div>
 
     <div class="total-box"><div class="row"><span>Total de compra</span><span id="fm-total">R$ 0,00</span></div></div> <!--Mostrar o total -->
@@ -653,8 +653,8 @@
     <div class="fg"><label>Forma de Pagamento</label><select id="fm-pag"><option value="pix">PIX</option><option value="cartao_credito">Cartão de Crédito</option><option value="cartao_debito">Cartão de Débito</option><option value="dinheiro">Dinheiro</option></select></div>
 
     <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="fechar('m-fechar-mesa')">Cancelar</button> <!-- Botão para cancelar a mesa-->
-      <button class="btn btn-green" onclick="confirmarFechamento()">✅ Fechar Setor</button>  <!-- Botão para confirmar a mesa-->
+      <button class="btn btn-ghost" onclick="fechar('m-fechar-setor')">Cancelar</button> <!-- Botão para cancelar a setor-->
+      <button class="btn btn-green" onclick="confirmarFechamento()">✅ Fechar Setor</button>  <!-- Botão para confirmar a setor-->
     </div>
 
   </div>

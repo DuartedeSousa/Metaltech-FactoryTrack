@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* Oꜱ ᴄᴏᴍᴇɴᴛáʀɪᴏꜱ ᴀᴅɪᴄɪᴏɴᴀᴅᴏꜱ ᴇᴍ ᴛᴏᴅᴏꜱ ᴏꜱ ᴀʀǫᴜɪᴠᴏꜱ ꜰᴏʀᴀᴍ ᴅɪɢɪᴛᴀᴅᴏꜱ ɴᴀ ᴍãᴏ, ꜱᴇᴍ ᴏ ᴜꜱᴏ ᴅᴇ ɪɴᴛᴇʟɪɢêɴᴄɪᴀ ᴀʀᴛɪꜰɪᴄɪᴀʟ, ᴘᴏɪꜱ ᴀ ɢᴇɴᴛᴇ ɴãᴏ é ᴛᴏᴅᴏ ᴍᴜɴᴅᴏ 👍 */
 
 :root { /* Cores pré-definidas*/
@@ -14,7 +14,7 @@
   --purple:  #8b5cf6;
   --orange:  #ff7d3b;
   --text:    #618aaf;
-  --muted:   #466174;
+  --muted:   #587d97;
   --r:       10px;
 }
 
@@ -478,7 +478,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   margin-bottom: 5px;
 }
 
-.total-box .row.tot { /*Total da mesa */
+.total-box .row.tot { /*Total d0 setor */
   font-weight: 700;
   font-size: 0.93rem;
   color: var(--text);
@@ -547,7 +547,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
  /*Selecionar elemento especifico que não possuem nenhum conteúdo filho*/
 .empty .ei { font-size: 2rem; display: block;  margin-bottom: 7px; }
 
-.mesa-card { /*Contêiner da  mesa*/
+.setor-card { /*Contêiner da  setor*/
   background: var(--surf);
   border: 1px solid var(--border);
   border-radius: var(--r);
@@ -556,7 +556,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   flex-direction: column;
 }
 
-.mesa-card-head { /*Contêiner da  mesa*/
+.setor-card-head { /*Contêiner da  setor*/
   padding: 12px 16px;
   display: flex;
   justify-content: space-between;
@@ -564,23 +564,23 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   border-bottom: 1px solid var(--border);
 }
 
-.mesa-num { /*Número de mesas*/
+.setor-num { /*Número de setors*/
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--red);
   letter-spacing: -0.5px;
 }
 
-.mesa-card-body { padding: 12px 16px; flex: 1; } /*Conteúdo da mesa*/
+.setor-card-body { padding: 12px 16px; flex: 1; } /*Conteúdo da setor*/
 
-.mesa-card-foot { /*Rodapé da mesa*/
+.setor-card-foot { /*Rodapé da setor*/
   padding: 10px 16px;
   border-top: 1px solid var(--border);
   display: flex;
   gap: 7px;
 }
 
-.mesa-item { /*Elemento da mesa*/
+.setor-item { /*Elemento da setor*/
   display: flex;
   justify-content: space-between;
   font-size: 0.78rem;
@@ -588,13 +588,13 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   border-bottom: 1px solid var(--border);
   color: var(--muted);
 }
-/*estilizar o último elemento filho do mesa-item*/
-.mesa-item:last-child { border-bottom: none; } 
+/*estilizar o último elemento filho do setor-item*/
+.setor-item:last-child { border-bottom: none; } 
 
-/*O texto negrito do item da mesa*/
-.mesa-item strong { color: var(--text); }
+/*O texto negrito do item da setor*/
+.setor-item strong { color: var(--text); }
 
-.mesa-total { /*Total da mesa*/
+.setor-total { /*Total da setor*/
   display: flex;
   justify-content: space-between;
   font-weight: 700;
@@ -616,7 +616,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   .fr2, .fr3 { grid-template-columns: 1fr; }
   .pg-body { padding: 14px; }
 }
-=======
+
 /* Oꜱ ᴄᴏᴍᴇɴᴛáʀɪᴏꜱ ᴀᴅɪᴄɪᴏɴᴀᴅᴏꜱ ᴇᴍ ᴛᴏᴅᴏꜱ ᴏꜱ ᴀʀǫᴜɪᴠᴏꜱ ꜰᴏʀᴀᴍ ᴅɪɢɪᴛᴀᴅᴏꜱ ɴᴀ ᴍãᴏ, ꜱᴇᴍ ᴏ ᴜꜱᴏ ᴅᴇ ɪɴᴛᴇʟɪɢêɴᴄɪᴀ ᴀʀᴛɪꜰɪᴄɪᴀʟ, ᴘᴏɪꜱ ᴀ ɢᴇɴᴛᴇ ɴãᴏ é ᴛᴏᴅᴏ ᴍᴜɴᴅᴏ 👍 */
 
 :root { /* Cores pré-definidas*/
@@ -669,7 +669,7 @@ body {  /* Corpo inteiro do site */
   margin-bottom: 30px;
 }
 
-.login-logo .em { /*🍕*/
+.login-logo .em { 
   font-size: 2.8rem;
   display: block;
   margin-bottom: 10px;
@@ -783,7 +783,7 @@ body.logado #app        { display: flex; }
 }
 
 .nav-btn:hover { background: var(--surf2); color: var(--text); } /*Ao passar o mouse*/
-.nav-btn.ativo { background: rgba(232,55,42,.11); color: var(--red); } /*Estilo de botão ativo*/
+.nav-btn.ativo { background: rgba(42, 232, 216, 0.11); color: var(--red); } /*Estilo de botão ativo*/
 .nav-btn .ic   { font-size: 0.95rem; width: 17px; text-align: center; } /*Estilo do emoji*/
 
 .sb-footer { /*Rodapé do site*/
@@ -1096,7 +1096,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   margin-bottom: 5px;
 }
 
-.total-box .row.tot { /*Total da mesa */
+.total-box .row.tot { /*Total da setor */
   font-weight: 700;
   font-size: 0.93rem;
   color: var(--text);
@@ -1165,7 +1165,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
  /*Selecionar elemento especifico que não possuem nenhum conteúdo filho*/
 .empty .ei { font-size: 2rem; display: block;  margin-bottom: 7px; }
 
-.mesa-card { /*Contêiner da  mesa*/
+.setor-card { /*Contêiner da  setor*/
   background: var(--surf);
   border: 1px solid var(--border);
   border-radius: var(--r);
@@ -1174,7 +1174,7 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   flex-direction: column;
 }
 
-.mesa-card-head { /*Contêiner da  mesa*/
+.setor-card-head { /*Contêiner da  setor*/
   padding: 12px 16px;
   display: flex;
   justify-content: space-between;
@@ -1182,23 +1182,23 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   border-bottom: 1px solid var(--border);
 }
 
-.mesa-num { /*Número de mesas*/
+.setor-num { /*Número de setors*/
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--red);
   letter-spacing: -0.5px;
 }
 
-.mesa-card-body { padding: 12px 16px; flex: 1; } /*Conteúdo da mesa*/
+.setor-card-body { padding: 12px 16px; flex: 1; } /*Conteúdo da setor*/
 
-.mesa-card-foot { /*Rodapé da mesa*/
+.setor-card-foot { /*Rodapé da setor*/
   padding: 10px 16px;
   border-top: 1px solid var(--border);
   display: flex;
   gap: 7px;
 }
 
-.mesa-item { /*Elemento da mesa*/
+.setor-item { /*Elemento da setor*/
   display: flex;
   justify-content: space-between;
   font-size: 0.78rem;
@@ -1206,13 +1206,13 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   border-bottom: 1px solid var(--border);
   color: var(--muted);
 }
-/*estilizar o último elemento filho do mesa-item*/
-.mesa-item:last-child { border-bottom: none; } 
+/*estilizar o último elemento filho do setor-item*/
+.setor-item:last-child { border-bottom: none; } 
 
-/*O texto negrito do item da mesa*/
-.mesa-item strong { color: var(--text); }
+/*O texto negrito do item da setor*/
+.setor-item strong { color: var(--text); }
 
-.mesa-total { /*Total da mesa*/
+.setor-total { /*Total da setor*/
   display: flex;
   justify-content: space-between;
   font-weight: 700;
@@ -1234,4 +1234,3 @@ select option { background: var(--surf2); } /*Menus suspensos*/
   .fr2, .fr3 { grid-template-columns: 1fr; }
   .pg-body { padding: 14px; }
 }
->>>>>>> 6432e9afa9395180a9cb09077a979724d915f1d3

@@ -132,7 +132,7 @@ function aplicarPerfil(usuario) {
 
   const perfil  = usuario.perfil;
   const isAdmin = perfil === 'Administrador';
-  const isGar   = perfil === 'Garcom';
+  const isGar   = perfil === 'gestor';
 
   function show(id, visible, type = 'flex') {
     const el = document.getElementById(id);
@@ -145,8 +145,8 @@ function aplicarPerfil(usuario) {
 
   show('menu-usuarios',   isAdmin, 'block');
   show('btn-usuarios',    isAdmin, 'flex');
-  show('sb-group-garcom', isGar,   'block');
-  show('btn-nav-setors',   isGar,   'flex');
+  show('sb-group-gestor', isGar,   'block');
+  show('btn-nav-setores',   isGar,   'flex');
 
   showEl(document.querySelector('[onclick*="clientes"]'),  !isGar);
   showEl(document.querySelector('[onclick*="pedidos"]'),   !isGar);
@@ -166,24 +166,24 @@ function aplicarPerfil(usuario) {
   show('stat-cli', !isGar, 'block');
 
 
-  //setors livres ou não
+  //setores livres ou não
   if (isGar) {
-    ir('setors', document.getElementById('btn-nav-setors'));
+    ir('setores', document.getElementById('btn-nav-setores'));
   } else {
     ir('dashboard', document.querySelector('[onclick*="dashboard"]'));
   }
 }
 
 //exibe os pedidos em uma interface mais "bonita" para o usuario
-async function carregarsetors(setorFiltro = null) {
-  const grid = document.getElementById('grid-setors');
+async function carregarsetores(setorFiltro = null) {
+  const grid = document.getElementById('grid-setores');
   grid.innerHTML = '<div class="spin-wrap"><div class="spin"></div> Carregando...</div>';
 
-  document.getElementById('setors-sub').textContent =
+  document.getElementById('setores-sub').textContent =
     `Olá, ${USUARIO_LOGADO?.nome}! Seus pedidos ativos.`;
 
   try {
-    const url = `/pedidos?garcom=${USUARIO_LOGADO.id}`;
+    const url = `/pedidos?gestor=${USUARIO_LOGADO.id}`;
     const pedidos = await api('GET', url);
 
     const ativos = pedidos.filter(p => !['entregue','cancelado'].includes(p.status));
@@ -191,19 +191,19 @@ async function carregarsetors(setorFiltro = null) {
     document.getElementById('g-ped').textContent     = pedidos.length;
     document.getElementById('g-ped-sub').textContent = `${ativos.length} ativo(s)`;
 
-    const setorsAtivas = new Set(ativos.map(p => p.setor).filter(Boolean));
-    document.getElementById('g-setors').textContent   = setorsAtivas.size;
+    const setoresAtivas = new Set(ativos.map(p => p.setor).filter(Boolean));
+    document.getElementById('g-setores').textContent   = setoresAtivas.size;
     document.getElementById('g-preparo').textContent = ativos.filter(p => p.status === 'em_preparo').length;
     document.getElementById('g-prontos').textContent = ativos.filter(p => p.status === 'saiu_entrega').length;
 
     const botoes = document.getElementById('setor-botoes');
     botoes.innerHTML = Array.from({length: 10}, (_, i) => {
       const n      = i + 1;
-      const temPed = setorsAtivas.has(n);
+      const temPed = setoresAtivas.has(n);
       const ativo  = setorFiltro === n;
       return `
         <button class="btn btn-sm ${ativo ? 'btn-red' : temPed ? 'btn-green' : 'btn-ghost'}"
-          onclick="carregarsetors(${n})"
+          onclick="carregarsetores(${n})"
           title="${temPed ? 'Setor com pedido ativo' : 'Setor livre'}">
           ${n}${temPed ? ' 🔴' : ''}
         </button>`;
@@ -389,11 +389,11 @@ async function salvarPedidosetor() {
       observacoes:    document.getElementById('pm-obs').value,
       setor,
       origem:         'setor',
-      garcom:         USUARIO_LOGADO?.id,
+      gestor:         USUARIO_LOGADO?.id,
     });
     toast(`Pedido lançado na setor ${setor}! 🛰️`);
     fechar('m-pedido-setor');
-    carregarsetors();
+    carregarsetores();
   } catch (e) { toast('Erro: ' + e.message, 'err'); }
 }
 
@@ -421,7 +421,7 @@ async function confirmarFechamento() {
     toast(`setor ${setorEmFechamento.setor} fechada! ✅`); //status da setor
     fechar('m-fechar-setor');
     setorEmFechamento = null;
-    carregarsetors();
+    carregarsetores();
   } catch (e) { toast('Erro: ' + e.message, 'err'); }
 }
 //envolve essa fuction a verificação de o usuario é administrador ou não , alem de dar permições e tirar dependendo do cargo
@@ -430,10 +430,10 @@ function ir(pg, btn) {
   if (pg === 'usuarios' && perfil !== 'Administrador') {
     toast('Acesso restrito a Administradores', 'err'); return;
   }
-  if (pg === 'setors' && perfil !== 'Garcom') {
+  if (pg === 'setores' && perfil !== 'gestor') {
     toast('Área exclusiva para Garçom', 'err'); return;
   }
-  if (perfil === 'Garcom' && !['setors','pecas'].includes(pg)) {
+  if (perfil === 'gestor' && !['setores','pecas'].includes(pg)) {
     toast('Acesso não permitido para Garçom', 'err'); return;
   }
   document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
@@ -446,7 +446,7 @@ function ir(pg, btn) {
     pecas:    carregarpecas,
     clientes:  carregarClientes,
     usuarios:  carregarUsuarios,
-    setors:     carregarsetors,
+    setores:     carregarsetores,
   };
   if (loaders[pg]) loaders[pg]();
 }
