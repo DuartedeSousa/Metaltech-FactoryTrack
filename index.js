@@ -34,14 +34,14 @@ ready.then(() => {
         res.json({ mensagem: 'API da Empresa funcionando!', status: 'online', porta: PORT}) // Mensagem que incluí status e porta utilizada como resposta
     })
 
-    app.get('*', (req, res) => { // Ocorre a coleta de tudo ("*") que será enviado para esta função
+    app.use((req, res) => { // Ocorre a coleta de tudo ("*") que será enviado para esta função
         res.sendFile(path.join(__dirname, 'public', 'index.html')) // Envio do arquivo em html (que incçuí o css através de um <link>) como resposta
     })
 
     app.listen(PORT, () => { // O express estará esperanado pela coleta da informação do PORT, que em seguida, utilizará o console.log para informar o funcionamento do site no console
         console.log('================================')
         console.log('Servidor rodando na porta ' + PORT)
-        console.log('API: http://localhost:' + PORT + 'API')
+        console.log('API: http://localhost:' + PORT + '/api')
         console.log('Front-end: http://localhost:' + PORT)
         console.log('================================')
     })
