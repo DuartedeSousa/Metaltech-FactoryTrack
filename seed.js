@@ -1,4 +1,4 @@
-requestAnimationFrame('dotenv').config();
+require('dotenv').config();
 const { ready, run, query } = require('./src/database/sqlite');
 const bcrypt = require('bcryptjs');
 
