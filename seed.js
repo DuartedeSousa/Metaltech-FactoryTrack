@@ -32,7 +32,47 @@ async function seed() {
 
 
         const pecas = [
-            ['']
-        ]
+            ['Pistões e Virabrequim','Motor e Transmissão', 1500],
+            ['Correia Dentada', 'Motor e Transmissão', 250],
+            ['Embreagem e Câmbio', 'Motor e Transmissão', 400],
+            ['Bomba d Água', 'Motor e Transmissão', 180],
+            ['Válvula Termostática', 'Motor e Transmissão', 100],
+            ['Radiador', 'Motor e Transmissão', 400],
+            ['Amortecedores', 'Suspensão e Direção', 500],
+            ['Molas', 'Suspensão e Direção', 300],
+            ['Pivôs e Buchas', 'Suspensão e Direção', 300],
+            ['Terminal de Direção', 'Suspensão e Direção', 80],
+            ['Discos e Pastilhas', 'Freios', 350],
+            ['Tambores e Sapatas', 'Freios', 300],
+            ['Cilindro Mestre', 'Freios', 250],
+            ['Velas de Ignição', 'Sistema Elétrico e Iluminação', 80],
+            ['Bateria', 'Sistema Elétrico e Iluminação', 350],
+            ['Alternador', 'Sistema Elétrico e Iluminação', 800],
+            ['Motor de Partida', 'Sistema Elétrico e Iluminação', 450],
+            ['Módulo de Injeção (ECU)', 'Sistema Elétrico e Iluminação', 1.200],
+            ['Para-choque Dianteiro', 'Carroceria e Acabamento', 400],
+            ['Capô', 'Carroceria e Acabamento', 600],
+            ['Portas', 'Carroceria e Acabamento', 800],
+            ['Retrovisor Lateral', 'Carroceria e Acabamento', 200],
+            ['Faróis', 'Carroceria e Acabamento', 500],
+            ['Lanternas Traseiras', 'Carroceria e Acabamento', 300],
+            ['Para-lama', 'Carroceria e Acabamento', 250]
+        ];
+
+        for (const [nome, cat, precos] of pecas) {
+            run('INSERT INTO pecas (nome, categoria, precos VALUES (?, ?, ?)',
+                [nome, cat, JSON.stringify(precos)]);
+        }
+        console.log('20 pizzas criadas')
+
+        console.log('======================================');
+        console.log('SEED EXECUTADO COM SUCESSO!');
+        console.log('======================================');
+        console.log('Login: admin@email.com | Senha: 123456');
+        console.log('======================================');
+    } catch (err) {
+        console.error('ERRO NO SEED:', err);
     }
 }
+
+seed();
