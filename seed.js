@@ -7,7 +7,6 @@ async function seed() {
         await ready;
         console.log('Limpando banco...');
 
-        run('DELETE FROM itens_pedido');
         run('DELETE FROM pedidos');
         run('DELETE FROM pecas');
         run('DELETE FROM clientes');
@@ -60,7 +59,7 @@ async function seed() {
         ];
 
         for (const [nome, cat, precos] of pecas) {
-            run('INSERT INTO pecas (nome, categoria, precos VALUES (?, ?, ?)',
+            run('INSERT INTO pecas (nome, categoria, precos) VALUES (?, ?, ?)',
                 [nome, cat, JSON.stringify(precos)]);
         }
         console.log('20 pizzas criadas')
