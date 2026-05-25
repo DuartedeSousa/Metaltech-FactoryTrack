@@ -549,7 +549,7 @@ async function carregarpecas() {
 // essa fuction é responsavel por limpar os cadastros de pedidos de pecas, quando já entregue a pecas para liberar espaço
 function abrirpeca() {
   document.getElementById('m-peca-t').textContent = 'Nova peca';
-  ['p-id','p-nome','p-ing','p-desc','p-pp','p-pm','p-pg']
+  ['p-id','p-nome','p-ing','p-desc','p-pp','p-pm','p-pg ']
     .forEach(id => document.getElementById(id).value = '');
   document.getElementById('p-cat').value  = 'tradicional';
   document.getElementById('p-disp').value = 'true';

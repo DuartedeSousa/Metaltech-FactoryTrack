@@ -31,7 +31,7 @@ const Peca = {
   //Busca todas as pecas do menu , organizadas por categoria e nome
   async findAll() {
     await ready;  //Executa quando o banco de dados estiver conectado, para evitar erros
-    return query('SELECT * FROM pecas ORDER BY categoria, nome').map(formatarPecas); // Ele vai retornar
+    return query('SELECT * FROM pecas ORDER BY categoria, nome').map(formatarPeca); // Ele vai retornar
   },
 
 
@@ -46,7 +46,7 @@ const Peca = {
   async create({ nome, descricao = '', precos = {}, disponivel = true, categoria = 'tradicional' }) {
     await ready;  //Executa quando o banco de dados estiver conectado, para evitar erros
     const info = run(
-      'INSERT INTO pecas (nome, descricao, precos, disponivel, categoria) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO pecas (nome, descricao, precos, disponivel, categoria) VALUES (?, ?, ?, ?, ?)',
       [nome.trim(), descricao.trim(),
        disponivel ? 1 : 0, categoria]
     );

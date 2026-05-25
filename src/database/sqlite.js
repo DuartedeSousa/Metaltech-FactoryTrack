@@ -78,7 +78,7 @@ const ready = (async () => {
         CREATE TABLE IF NOT EXISTS pedidos (
           id                INTEGER PRIMARY KEY AUTOINCREMENT,
           numero_pedido     INTEGER,
-          vliente_id        INTEGER NOT NULL REFERENCES clientes(id),
+          cliente_id        INTEGER NOT NULL REFERENCES clientes(id),
           subtotal          REAL    NOT NULL DEFAULT 0,
           taxa_entrega      REAL    NOT NULL DEFAULT 0,
           total             REAL    NOT NULL DEFAULT 0,
@@ -95,7 +95,7 @@ const ready = (async () => {
     `);
 
     db.run(`
-        CREATE TABLE IF NOT EXISTS pedidos (
+        CREATE TABLE IF NOT EXISTS itens_pedidos (
           id                INTEGER PRIMARY KEY AUTOINCREMENT,
           pedido_id         INTEGER NOT NULL REFERENCES pedidos(id),
           peca_id           INTEGER NOT NULL REFERENCES pecas(id),

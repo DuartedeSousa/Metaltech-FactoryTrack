@@ -33,7 +33,7 @@ router.post('/auth/login', async (req, res) => {
 });
 
 router.get('/pecas', auth, async (req, res) => { // Rota que coleta e mostra todas as peças
-    try { res.json(await Pecas.findAll)}
+    try { res.json(await Pecas.findAll())}
     catch (e) { res.status(500).json({ erro: e.message}); }
 });
 
