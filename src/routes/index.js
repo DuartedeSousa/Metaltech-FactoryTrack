@@ -37,7 +37,7 @@ router.get('/pecas', auth, async (req, res) => { // Rota que coleta e mostra tod
     catch (e) { res.status(500).json({ erro: e.message}); }
 });
 
-router.get('/pecas/:id', auth, async (req, res) => { // Rota que pesquisa pizzas pelo id,, com um try para captar erros
+router.get('/pecas/:id', auth, async (req, res) => { // Rota que pesquisa pecas pelo id,, com um try para captar erros
     try {
         const p = await Pecas.findById(req.params.id);
         if (!p) return res.status(404).json({ erro: 'Peça não encontrada'});

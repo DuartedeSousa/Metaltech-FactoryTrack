@@ -62,7 +62,7 @@ async function seed() {
             run('INSERT INTO pecas (nome, categoria, precos) VALUES (?, ?, ?)',
                 [nome, cat, JSON.stringify(precos)]);
         }
-        console.log('20 pizzas criadas')
+        console.log('20 pecas criadas')
 
         console.log('======================================');
         console.log('SEED EXECUTADO COM SUCESSO!');

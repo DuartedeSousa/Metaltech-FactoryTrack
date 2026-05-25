@@ -493,7 +493,7 @@ async function carregarDashboard() {
       </div>`).join('') ||
       '<div class="empty"><span class="ei">📋</span>Nenhum pedido ainda</div>';
 
-    const elC = document.getElementById('dash-cardapio');
+    const elC = document.getElementById('dash-peca');
     elC.innerHTML = pecas.filter(p => p.disponivel).slice(0, 8).map(p => `
       <div class="mini-row">
         <span>🛰️ ${p.nome}</span>

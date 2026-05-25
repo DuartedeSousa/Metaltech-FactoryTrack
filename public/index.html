@@ -84,7 +84,7 @@
        <!-- Visualizar Cadastros -->
       <div class="sb-group">Cadastros</div>
       <button class="nav-btn" onclick="ir('pecas',this)">
-        <span class="ic">🛰️</span><span id="nav-pecas-label">peca</span>
+        <span class="ic">🛰️</span><span id="nav-pecas-label">Peças</span>
       </button>
 
       <!-- Visualizar Clientes -->
@@ -162,10 +162,10 @@
             <div class="sub">cadastrados</div>
           </div>
 
-           <!-- Área de visualização das pecas no Cardápio -->
+           <!-- Área de visualização das pecas no Peças -->
           <div class="stat cb">
             <span class="ico">🛰️</span>
-            <div class="lbl">peca</div>
+            <div class="lbl">Peças</div>
             <div class="val" id="s-piz">—</div>
             <div class="sub">no menu</div>
           </div>
@@ -201,7 +201,7 @@
 
           <div class="card">
 
-            <div class="card-head"><h3>Cardápio Ativo</h3></div>
+            <div class="card-head"><h3>Peças Ativas</h3></div>
 
             <div class="card-body" id="dash-cardapio">
               <div class="spin-wrap"><div class="spin"></div> Carregando...</div>
@@ -249,11 +249,11 @@
       <div class="pg-header">
 
         <div>
-          <h2 id="pg-pecas-titulo">peca</h2>  
-          <p id="pg-pecas-sub">Gerencie o registro de peca</p>
+          <h2 id="pg-pecas-titulo">peça</h2>  
+          <p id="pg-pecas-sub">Gerencie o registro de peça</p>
         </div>
     
-        <button class="btn btn-red" id="btn-nova-peca" onclick="abrirpeca()">+ Nova peca</button>  <!-- Botão para  adicionar mais peca -->
+        <button class="btn btn-red" id="btn-nova-peca" onclick="abrirpeca()">+ Nova peça</button>  <!-- Botão para  adicionar mais peca -->
       </div>
 
 
@@ -277,7 +277,7 @@
       <div class="pg-header">
 
         <div><h2>Clientes</h2><p>Cadastre e busque clientes</p></div> 
-        <button class="btn btn-red" onclick="abrirCliente()">+ Nova peca</button>   <!-- Botão para  adicionar mais  clientes -->
+        <button class="btn btn-red" onclick="abrirCliente()">+ Novo Cliente</button>   <!-- Botão para  adicionar mais  clientes -->
       </div>
 
       <div class="pg-body">
@@ -407,7 +407,7 @@
 
   <div class="modal">
 
-    <h3 id="m-peca-t">Nova peca</h3>
+    <h3 id="m-peca-t">Nova peça</h3>
     <input type="hidden" id="p-id">
 
     <div class="fr2">
@@ -501,12 +501,12 @@
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
       <label style="margin-bottom:0;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">Itens do Pedido</label> <!--Caixa de entrada para inserir os itens do pedido desejado -->
-      <button class="btn btn-ghost btn-sm" onclick="addItem()">+ peca</button> <!-- Botão para adicionar peca -->
+      <button class="btn btn-ghost btn-sm" onclick="addItem()">+ peça</button> <!-- Botão para adicionar peca -->
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 68px 58px 68px 30px;gap:6px;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;padding:0 1px">
-      <span>Ppeca</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> <!--Caixa de entrada para inserir os itens do pedido desejado -->
-      <button class="btn btn-ghost btn-sm" onclick="addItem()">+ peca</button> <!-- Botão para adicionar peca -->
+      <span>Peça</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> <!--Caixa de entrada para inserir os itens do pedido desejado -->
+      <button class="btn btn-ghost btn-sm" onclick="addItem()">+ peça</button> <!-- Botão para adicionar peca -->
     </div>
 
     <div id="itens-lista"></div>
@@ -533,7 +533,7 @@
 
 </div>
 
-    <!-- // ==================================  FIM NOVO PEDIDO ============================= // -->
+    <!- // ==================================  FIM NOVO PEDIDO ============================= // -->
 
     <!-- // ==================================  ATUALIZAR STATUS ============================= // -->
 
@@ -610,12 +610,12 @@
    
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
       <label style="margin-bottom:0;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">Itens do Pedido</label>  
-      <button class="btn btn-ghost btn-sm" onclick="addItemsetor()">+ peca</button>  <!--Botão para adiconar os itens selecionados-->
+      <button class="btn btn-ghost btn-sm" onclick="addItemsetor()">+ Peça</button>  <!--Botão para adiconar os itens selecionados-->
     </div>
 
 
     <div style="display:grid;grid-template-columns:1fr 68px 58px 68px 30px;gap:6px;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;padding:0 1px">
-      <span>peca</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> 
+      <span>peça</span><span>Tam.</span><span>Qtd</span><span>Subtotal</span><span></span> 
     </div>
 
     <div id="itens-setor-lista"></div>
