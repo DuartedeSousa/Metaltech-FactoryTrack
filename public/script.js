@@ -549,7 +549,7 @@ async function carregarpecas() {
 // essa fuction é responsavel por limpar os cadastros de pedidos de pecas, quando já entregue a pecas para liberar espaço
 function abrirpeca() {
   document.getElementById('m-peca-t').textContent = 'Nova peca';
-  ['p-id','p-nome','p-ing','p-desc','p-pp','p-pm','p-pg ']
+  ['p-id','p-nome','p-ing','p-desc','p-preco']
     .forEach(id => document.getElementById(id).value = '');
   document.getElementById('p-cat').value  = 'tradicional';
   document.getElementById('p-disp').value = 'true';
@@ -568,7 +568,7 @@ function editarpeca(id) {
   document.getElementById('p-nome').value = p.nome;
   document.getElementById('p-ing').value  = p.ingredientes;
   document.getElementById('p-desc').value = p.descricao || '';
-  document.getElementById('p-pp').value   = p.precos?.P || '';
+  document.getElementById('p-preco').value   = p.precos?.P || '';
   document.getElementById('p-cat').value  = p.categoria || 'tradicional';
   document.getElementById('p-disp').value = String(p.disponivel);
   abrir('m-peca');
@@ -586,10 +586,8 @@ async function salvarpeca() {
     ingredientes: ing,
     descricao:    document.getElementById('p-desc').value.trim(),
     precos: {
-      P: parseFloat(document.getElementById('p-pp').value) || 0,
-      M: parseFloat(document.getElementById('p-pm').value) || 0,
-      G: parseFloat(document.getElementById('p-pg').value) || 0,
-    },
+      P: parseFloat(document.getElementById('p-preco').value) || 0
+    },//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! PODE TER ERRO AQUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     categoria:  document.getElementById('p-cat').value,
     disponivel: document.getElementById('p-disp').value === 'true',
   };
