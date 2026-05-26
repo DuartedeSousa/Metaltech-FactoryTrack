@@ -58,7 +58,7 @@ const Pedido = { // Variável pedido recebe:
       rows = query(`${SELECT_PEDIDO} ORDER BY p.created_at DESC`);
     }
     return rows.map(row => {
-      const itens = query('SELECT * FROM itens_pedido WHERE pedido_id = ?', [row.id]);
+      const itens = query('SELECT * FROM itens_pedidos WHERE pedido_id = ?', [row.id]);
       return formatarPedido(row, itens);
     });
   },
@@ -67,7 +67,7 @@ const Pedido = { // Variável pedido recebe:
     await ready;
     const row = get(`${SELECT_PEDIDO} WHERE p.id = ?`, [id]);
     if (!row) return null;
-    const itens = query('SELECT * FROM itens_pedido WHERE pedido_id = ?', [id]);
+    const itens = query('SELECT * FROM itens_pedidos WHERE pedido_id = ?', [id]);
     return formatarPedido(row, itens);
   },
 
@@ -75,7 +75,7 @@ const Pedido = { // Variável pedido recebe:
   async create({ clienteId, itens, taxaEntrega = 0, formaPagamento, troco = 0, observacoes = '', mesa = null, origem = 'balcao', gestorId = null }) {
     await ready;
 
-    const Peca = require('./Peça');
+    const Peca = require('./Pecas');
     let subtotal = 0;
     const itensProcessados = [];
 
@@ -113,7 +113,7 @@ const Pedido = { // Variável pedido recebe:
 
     for (const it of itensProcessados) {
       run(`
-        INSERT INTO itens_pedido
+        INSERT INTO itens_pedidos
           (pedido_id, peca_id, nome_peca, tamanho, quantidade, preco_unitario, subtotal)
         VALUES (?, ?, ?, ?, ?, ?, ?)
       `, [pedidoId, it.pecaId, it.nomePeca, it.tamanho, it.quantidade, it.precoUnitario, it.subtotal]);
@@ -134,7 +134,7 @@ const Pedido = { // Variável pedido recebe:
   async delete(id) { // De forma assíncrona deleta o pedido por id
     await ready;
     // Deleta itens primeiro (sem CASCADE no sql.js)
-    run('DELETE FROM itens_pedido WHERE pedido_id = ?', [id]);
+    run('DELETE FROM itens_pedidos WHERE pedido_id = ?', [id]);
     const info = run('DELETE FROM pedidos WHERE id = ?', [id]);
     return info.changes > 0;
   },

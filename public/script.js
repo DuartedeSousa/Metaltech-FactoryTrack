@@ -97,7 +97,7 @@ function R$(v) {
 function badge(s) {
   const r = {
     recebido:     '📥 Recebido',
-    em_preparo:   '⚙️ Fabricando',
+    em_produção:   '⚙️ Fabricando',
     saiu_entrega: '🚚 Saiu p/ Entrega',
     entregue:     '✅ Entregue',
     cancelado:    '❌ Cancelado',
@@ -156,7 +156,7 @@ function aplicarPerfil(usuario) {
   const labelpecas = document.getElementById('nav-pecas-label');
   if (labelpecas) labelpecas.textContent = isGar ? 'menu' : 'pecas';
 
-  const titulopecas = document.getElementById('pg-pecass-titulo');
+  const titulopecas = document.getElementById('pg-pecas-titulo');
   const subpecas    = document.getElementById('pg-pecas-sub');
   if (titulopecas) titulopecas.textContent = isGar ? 'menu' : 'pecas';
   if (subpecas  )    subpecas  .textContent    = isGar ? 'pecas disponíveis hoje' : 'Gerencie o cardápio';
@@ -193,7 +193,7 @@ async function carregarsetores(setorFiltro = null) {
 
     const setoresAtivas = new Set(ativos.map(p => p.setor).filter(Boolean));
     document.getElementById('g-setores').textContent   = setoresAtivas.size;
-    document.getElementById('g-preparo').textContent = ativos.filter(p => p.status === 'em_preparo').length;
+    document.getElementById('g-preparo').textContent = ativos.filter(p => p.status === 'em_produção').length;
     document.getElementById('g-prontos').textContent = ativos.filter(p => p.status === 'saiu_entrega').length;
 
     const botoes = document.getElementById('setor-botoes');
@@ -431,7 +431,7 @@ function ir(pg, btn) {
     toast('Acesso restrito a Administradores', 'err'); return;
   }
   if (pg === 'setores' && perfil !== 'gestor') {
-    toast('Área exclusiva para Garçom', 'err'); return;
+    toast('Área exclusiva para Gestores', 'err'); return;
   }
   if (perfil === 'gestor' && !['setores','pecas'].includes(pg)) {
     toast('Acesso não permitido para Garçom', 'err'); return;
@@ -794,7 +794,7 @@ function addItem() {
 
   document.getElementById('itens-lista').appendChild(d);
 }
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
 //calcula o subtotal e o total de um pedido online, desde o pedido até a taixa de entrega
 

@@ -98,7 +98,7 @@ router.put('/clientes/:id', auth, async (req, res) => { // Rota que atualiza um 
     } catch (e) { res.status(500).json({ erro: e.message }); }
 });
 
-router.delete('clientes/:id', auth, async (req, res) => { // Rota que deleta um cliente já existente
+router.delete('/clientes/:id', auth, async (req, res) => { // Rota que deleta um cliente já existente
     try {
         const ok = await Cliente.delete(req.params.id);
         if (!ok) return res.status(404).json({ erro: 'Cliente não encontrado' });
@@ -118,7 +118,7 @@ router.get('/pedidos/:id', auth, async (req, res) => { // Rota que pesquisa pedi
     try {
         const p = await Pedido.findByID(req.params.id);
         if (!p) return res.status(404).json({ erro: 'Pedido não encontrado' });
-        response.json(p);
+        res.json(p);
     } catch (e) { res.status(500).json({ erro: e.message}); }
 });
 
@@ -129,7 +129,7 @@ router.post('/pedidos', auth, async (req, res) => { // Rota para criação de um
             return res.status(400).json({ erro: 'cliente, itens e formaPagamento são obrigatórios'});
 
         const novo = await Pedido.create({
-            clienteId:
+            clienteId: cliente,
             itens,
             taxaEntrega:    req.body.taxaEntrega,
             formaPagamento,
