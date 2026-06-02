@@ -14,8 +14,7 @@ function formatarPeca(row) {
     _id:         row.id,
     id:          row.id,
     nome:        row.nome,
-    descricao:   row.descricao,
-    precos:      row.precos,
+    precos:      (() => { try { return JSON.parse(row.precos || '{}'); } catch { return {}; } })(),
     disponivel:  row.disponivel === 1,
     categoria:   row.categoria,
     createdAt:   row.created_at,
@@ -43,31 +42,26 @@ const Peca = {
 
 
   //Adiciona no menu uma nova Peca a partir das categorias
-  async create({ nome, descricao = '', precos = {}, disponivel = true, categoria = 'tradicional' }) {
+  async create({ nome, precos = {}, disponivel = true, categoria = 'tradicional' }) {
     await ready;  //Executa quando o banco de dados estiver conectado, para evitar erros
     const info = run(
-      'INSERT INTO pecas (nome, descricao, precos, disponivel, categoria) VALUES (?, ?, ?, ?, ?)',
-      [nome.trim(), descricao.trim(),
-       disponivel ? 1 : 0, categoria]
+      'INSERT INTO pecas (nome, precos, disponivel, categoria) VALUES (?, ?, ?, ?)',
+      [nome.trim(), JSON.stringify(precos), disponivel ? 1 : 0, categoria]
     );
     return this.findById(info.lastInsertRowid); //Retorna as informações para conferir os dados inseridos da nova Peca
   },
  //Atualiza os dados de uma Peca que ja existe no menu
-  async update(id, { nome, descricao, precos, disponivel, categoria }) {
+  async update(id, { nome, precos, disponivel, categoria }) {
     await ready;  //Executa quando o banco de dados estiver conectado, para evitar erros
     const atual = get('SELECT * FROM pecas WHERE id = ?', [id]);
     if (!atual) return null; //Caso não encontre a peca , ela não dará prosseguimento
 
-
-    //Caso deseje alterar o nome o preço não será alterado
-    const precosAtuais = JSON.parse(atual.precos);
-    const precosFinal  = precos
-
+    const precosAtuais = JSON.parse(atual.precos || '{}');
+    const precosFinal  = precos !== undefined ? precos : precosAtuais;
 
     run(`
       UPDATE pecas SET
         nome         = ?,
-        descricao    = ?,
         precos       = ?,
         disponivel   = ?,
         categoria    = ?,
@@ -75,7 +69,6 @@ const Peca = {
       WHERE id = ?
     `, [
       nome         ?? atual.nome,
-      descricao    ?? atual.descricao,
       JSON.stringify(precosFinal),
       disponivel   !== undefined ? (disponivel ? 1 : 0) : atual.disponivel,
       categoria    ?? atual.categoria,

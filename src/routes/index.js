@@ -53,6 +53,14 @@ router.get('/pecas/:id', auth, async (req, res) => { // Rota que pesquisa pecas 
 
 
 
+router.post('/pecas', auth, async (req, res) => { // Rota para criação de uma nova peça
+    try {
+        if (!req.body.nome)
+            return res.status(400).json({ erro: 'Nome é obrigatório' });
+        res.status(201).json(await Pecas.create(req.body));
+    } catch (e) { res.status(500).json({ erro: e.message }); }
+});
+
 router.put('/pecas/:id', auth, async (req, res) => { //Rota que atualiza os dados de uma peça existente
     try {
         const p = await Pecas.update(req.params.id, req.body);
@@ -71,7 +79,7 @@ router.delete('/pecas/:id', auth, async (req, res) => { // Rota que deleta uma p
 
 router.get('/clientes', auth, async (req, res) => { // Rota que coleta e mostra todos os clientes
     try { res.json(await Cliente.findAll(req.query.busca)); }
-    catch (e) { res.status(500).json({ erro: e.messahe }); }
+    catch (e) { res.status(500).json({ erro: e.message }); }
 });
 
 router.get('/clientes/:id', auth, async (req, res) => { // Rota que pesquisa clientes pelo id, com um try para captar erros
@@ -167,7 +175,7 @@ router.get('/usuarios', auth, async (req, res) => { // Rota que coleta e mostra 
         if (req.usuario.perfil !== 'Administrador')
             return res.status(403).json({ erro: 'Acesso restrito a Administradores'});
         res.json(await Usuario.findAll());
-    } catch (e) { res.status(500).json({ erro: e.messgae}); }
+    } catch (e) { res.status(500).json({ erro: e.message}); }
 });
 
 router.post('/usuarios', auth, async (req, res) => {
@@ -189,7 +197,7 @@ router.put('/usuarios/:id', auth, async (req, res) => { // Rota que pesquisa usu
         if (req.usuario.perfil !== 'Administrador')
             return res.status(403).json({ erro: 'Acesso restrito a Administradores'});
         const u = await Usuario.update(req.params.id, req.body);
-        if (!u) return res.status(404).json({ erro: e.message});
+        if (!u) return res.status(404).json({ erro: 'Usuário não encontrado' });
         res.json(u);
     } catch (e) { res.status(500).json({erro: e.message}); }
 });

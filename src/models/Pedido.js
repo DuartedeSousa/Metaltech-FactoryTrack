@@ -125,7 +125,7 @@ const Pedido = { // Variável pedido recebe:
   async updateStatus(id, status) { // De forma assíncrona atualiza o status do pedido por id
     await ready;
     const info = run(
-      "UPDATE pedidos SET status = ?, updated_at = datetime('now') WHERE id = ?",
+      "UPDATE pedidos SET status = ?, update_at = datetime('now') WHERE id = ?",
       [status, id]
     );
     return info.changes > 0 ? this.findById(id) : null;

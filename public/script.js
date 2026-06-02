@@ -520,18 +520,15 @@ async function carregarpecas() {
     el.innerHTML = ` 
       <table>
         <thead>
-          <tr><th>Nome</th><th>Categoria</th><th>Preços</th><th>Status</th><th>Ações</th>
+          <tr><th>Nome</th><th>Categoria</th><th>Status</th><th>Preços</th><th>Ações</th>
         </thead>
         <tbody>
           ${cpecas.map(p => `
             <tr>
-            
-              <td><strong>${p.nome}</strong><br><small style="color:var(--muted)">${p.descricao || ''}</small></td>
+              <td><strong>${p.nome}</strong></td>
               <td><span class="badge b-cat">${p.categoria || 'tradicional'}</span></td>
-              <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.ingredientes}</td>
-              <td>${R$(p.precos)}</td>
-
               <td><span class="badge ${p.disponivel ? 'b-on' : 'b-off'}">${p.disponivel ? '✅ Disponível' : '❌ Off'}</span></td>
+              <td>${R$((() => { if (!p.precos) return 0; if (typeof p.precos === 'object') return p.precos.P ?? p.precos.M ?? p.precos.G ?? 0; try { const o = JSON.parse(p.precos); return o.P ?? o.M ?? o.G ?? 0; } catch { return 0; } })())}</td>
               <td><div style="display:flex;gap:5px"><button class="btn btn-ghost btn-sm" onclick="editarpeca('${p._id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="deletarpeca('${p._id}','${p.nome}')">🗑️</button></div></td>
              </tr>`).join('')}
         </tbody>
@@ -548,7 +545,7 @@ async function carregarpecas() {
 // essa fuction é responsavel por limpar os cadastros de pedidos de pecas, quando já entregue a pecas para liberar espaço
 function abrirpeca() {
   document.getElementById('m-peca-t').textContent = 'Nova peca';
-  ['p-id','p-nome','p-ing','p-desc','p-preco']
+  ['p-id','p-nome','p-pp']
     .forEach(id => document.getElementById(id).value = '');
   document.getElementById('p-cat').value  = 'tradicional';
   document.getElementById('p-disp').value = 'true';
@@ -560,14 +557,22 @@ function abrirpeca() {
 //edita valores e coisas da peca
 
 function editarpeca(id) {
-  const p = cpecas.find(x => x._id === id);
-  if (!p) return;
+  const p = cpecas.find(x => String(x._id) === String(id));
+  if (!p) { toast('Peça não encontrada', 'err'); return; }
   document.getElementById('m-peca-t').textContent = 'Editar peca';
   document.getElementById('p-id').value   = p._id;
   document.getElementById('p-nome').value = p.nome;
-  document.getElementById('p-ing').value  = p.ingredientes;
-  document.getElementById('p-desc').value = p.descricao || '';
-  document.getElementById('p-preco').value   = p.precos?.P || '';
+
+  let precoValor = '';
+  if (p.precos && typeof p.precos === 'object') {
+    precoValor = p.precos.P ?? p.precos.M ?? p.precos.G ?? '';
+  } else if (typeof p.precos === 'string') {
+    try { const obj = JSON.parse(p.precos); precoValor = obj.P ?? obj.M ?? obj.G ?? ''; } catch { precoValor = ''; }
+  } else if (typeof p.precos === 'number') {
+    precoValor = p.precos;
+  }
+
+  document.getElementById('p-pp').value   = precoValor;
   document.getElementById('p-cat').value  = p.categoria || 'tradicional';
   document.getElementById('p-disp').value = String(p.disponivel);
   abrir('m-peca');
@@ -577,16 +582,13 @@ function editarpeca(id) {
 async function salvarpeca() {
   const id   = document.getElementById('p-id').value;
   const nome = document.getElementById('p-nome').value.trim();
-  const ing  = document.getElementById('p-ing').value.trim();
-  if (!nome || !ing) { toast('Nome e ingredientes são obrigatórios', 'err'); return; }
+  if (!nome) { toast('Nome é obrigatório', 'err'); return; }
 
   const d = {
     nome,
-    ingredientes: ing,
-    descricao:    document.getElementById('p-desc').value.trim(),
     precos: {
-      P: parseFloat(document.getElementById('p-preco').value) || 0
-    },//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! PODE TER ERRO AQUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      P: parseFloat(document.getElementById('p-pp').value) || 0
+    },
     categoria:  document.getElementById('p-cat').value,
     disponivel: document.getElementById('p-disp').value === 'true',
   };
@@ -957,14 +959,3 @@ async function deletarUsuario(id, nome) {
   } catch (e) { toast('Erro: ' + e.message, 'err'); }
 }
 
-//os comentarios a cima foram digitados pelas nossas mãos esqueleticas de programador, prof :)
-
-
-//Index.js inicializa o servidor e conexção com banco de dados e trata os erros
-//script.js tambem conhecido como front endo comunica com a api e manipula o DOM
-//Auth.js verifica o token, simplifica a implementação de login com provedores sociais
-//os Models gerenciam a estrutura, persistência e regras de negócio dos dados
-//routes definem caminhos, organiza aplicações e recebe parâmetros capturando URL para realizar certas operções
-//.env guarda variaveis globais
-//peca.bd é o banco de dados do programa da nossa empresa.
-//package.json e package-lock.json nós importamos para nosso é um arquivo fundamental em projetos JavaScript/Node.js que funciona como a "certidão de nascimento" e painel de configuração do projeto
