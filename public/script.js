@@ -460,7 +460,7 @@ async function carregarDashboard() {
 
   try {
     const [pecas, clientes, pedidos] = await Promise.all([
-      api('GET', 'pecas'),
+      api('GET', '/pecas'),
       api('GET', '/clientes'),
       api('GET', '/pedidos'),
     ]);
@@ -520,7 +520,7 @@ async function carregarpecas() {
     el.innerHTML = ` 
       <table>
         <thead>
-          <tr><th>Nome</th><th>Categoria</th><th>Ingredientes</th><th>P</th><th>M</th><th>G</th><th>Status</th><th>Ações</th>
+          <tr><th>Nome</th><th>Categoria</th><th>Preços</th><th>Status</th><th>Ações</th>
         </thead>
         <tbody>
           ${cpecas.map(p => `
@@ -529,9 +529,8 @@ async function carregarpecas() {
               <td><strong>${p.nome}</strong><br><small style="color:var(--muted)">${p.descricao || ''}</small></td>
               <td><span class="badge b-cat">${p.categoria || 'tradicional'}</span></td>
               <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.ingredientes}</td>
-              <td>${R$(p.precos?.P)}</td>
-              <td>${R$(p.precos?.M)}</td>
-              <td><strong style="color:var(--gold)">${R$(p.precos?.G)}</strong></td>
+              <td>${R$(p.precos)}</td>
+
               <td><span class="badge ${p.disponivel ? 'b-on' : 'b-off'}">${p.disponivel ? '✅ Disponível' : '❌ Off'}</span></td>
               <td><div style="display:flex;gap:5px"><button class="btn btn-ghost btn-sm" onclick="editarpeca('${p._id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="deletarpeca('${p._id}','${p.nome}')">🗑️</button></div></td>
              </tr>`).join('')}
@@ -739,7 +738,7 @@ async function carregarPedidos() {
             <tr>
               <td><strong style="color:var(--red)">#${String(p.numeroPedido||'?').padStart(3,'0')}</strong></td>
               <td><strong>${p.cliente?.nome || '—'}</strong><br><small style="color:var(--muted)">${p.cliente?.telefone || ''}</small></td>
-              <td style="font-size:.76rem">${p.itens.map(it => `${it.quantidade}x ${it.nomepeca || '?'} (${it.tamanho})`).join('<br>')}</td>
+              <td style="font-size:.76rem">${p.itens.map(it => `${it.quantidade}x ${it.nomepeca || '?'} `).join('<br>')}</td>
               <td>${R$(p.subtotal)}</td><td>${R$(p.taxaEntrega)}</td>
               <td><strong style="color:var(--gold)">${R$(p.total)}</strong></td>
               <td style="font-size:.76rem">${(p.formaPagamento || '—').replace('_', ' ')}</td>
@@ -836,7 +835,6 @@ async function salvarPedido() {
     if (!pid) { valido = false; return; }
     itens.push({
       peca:      pid,
-      tamanho:    row.querySelector('.it').value,
       quantidade: parseInt(row.querySelector('.iq').value) || 1,
     });
   });
