@@ -88,7 +88,7 @@ const ready = (async () => {
           observacoes       TEXT    NOT NULL DEFAULT '',
           setor             INTEGER,
           origem            TEXT    NOT NULL DEFAULT 'balcao',
-          garcom_id         INTEGER REFERENCES usuarios(id),
+          gestor_id         INTEGER REFERENCES usuarios(id),
           created_at        TEXT    NOT NULL DEFAULT (datetime('now')),
           update_at         TEXT    NOT NULL DEFAULT (datetime('now'))
         )

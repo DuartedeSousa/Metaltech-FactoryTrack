@@ -788,7 +788,6 @@ function addItem() {
 
   d.innerHTML = `
     <select class="ip" onchange="recalc()"><option value="">Selecione...</option>${opts}</select>
-    <select class="it" onchange="recalc()"><option value="P">P</option><option value="M">M</option><option value="G" selected>G</option></select>
     <input class="iq" type="number" value="1" min="1" oninput="recalc()">
     <div class="is" style="font-size:.8rem;text-align:right;color:var(--muted)">R$ 0,00</div>
     <button class="btn-rm" onclick="this.parentElement.remove(); recalc()">×</button>`;

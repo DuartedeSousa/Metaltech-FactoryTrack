@@ -84,7 +84,7 @@
        <!-- Visualizar Cadastros -->
       <div class="sb-group">Cadastros</div>
       <button class="nav-btn" onclick="ir('pecas',this)">
-        <span class="ic">🛰️</span><span id="nav-pecas-label">Peças</span>
+        <span class="ic">⚙️</span><span id="nav-pecas-label">Peças</span>
       </button>
 
       <!-- Visualizar Clientes -->
@@ -164,10 +164,10 @@
 
            <!-- Área de visualização das pecas no Peças -->
           <div class="stat cb">
-            <span class="ico">🛰️</span>
+            <span class="ico">⚙️</span>
             <div class="lbl">Peças</div>
             <div class="val" id="s-piz">—</div>
-            <div class="sub">no menu</div>
+            <div class="sub">no estoque</div>
           </div>
 
           <!-- Área de visualização das Entregas -->
@@ -506,7 +506,6 @@
 
     <div style="display:grid;grid-template-columns:1fr 68px 58px 68px 30px;gap:6px;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;padding:0 1px">
       <span>Peça</span><span>Qtd</span><span>Subtotal</span><span></span> <!--Caixa de entrada para inserir os itens do pedido desejado -->
-      <button class="btn btn-ghost btn-sm" onclick="addItem()">+ peça</button> <!-- Botão para adicionar peca -->
     </div>
 
     <div id="itens-lista"></div>
@@ -522,7 +521,7 @@
       <div class="fg" id="wrap-troco" style="display:none"><label>Troco para (R$)</label><input id="ped-troco" type="number" min="0" step="1" placeholder="Ex: 100"></div> <!--Caixa de entrada para selecionar o troco-->
     </div>
 
-    <div class="fg"><label>Observações</label><textarea id="ped-obs" rows="2" placeholder="cuidao ao anusear..."></textarea></div> <!--Caixa de entrada para adicionar as obeservações do pedidos -->
+    <div class="fg"><label>Observações</label><textarea id="ped-obs" rows="2" placeholder="Cuidado ao manusear..."></textarea></div> <!--Caixa de entrada para adicionar as obeservações do pedidos -->
 
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="fechar('m-pedido')">Cancelar</button> <!-- Botão para cancelar o pedido-->
