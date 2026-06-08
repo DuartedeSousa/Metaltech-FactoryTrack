@@ -82,7 +82,12 @@ const Pedido = { // Variável pedido recebe:
       const peca = await Peca.findById(item.peca);
       if (!peca) throw new Error(`Peça ID ${item.peca} não encontrada`);
 
-      const preco   = peca.precos || 0;
+      const tamanho = (item.tamanho || 'P').toUpperCase();
+      const precos = peca.precos || {};
+      const preco = typeof precos === 'object'
+        ? Number(precos[tamanho] ?? precos.P ?? precos.M ?? precos.G ?? 0)
+        : Number(precos || 0);
+
       const subItem = preco * item.quantidade;
       subtotal     += subItem;
 
@@ -90,6 +95,7 @@ const Pedido = { // Variável pedido recebe:
         pecaId:       peca.id,
         nomePeca:     peca.nome,
         quantidade:    item.quantidade,
+        tamanho:       tamanho,
         precoUnitario: preco,
         subtotal:      subItem,
       });
@@ -113,7 +119,7 @@ const Pedido = { // Variável pedido recebe:
       run(`
         INSERT INTO itens_pedidos
           (pedido_id, peca_id, nome_peca, quantidade, preco_unitario, subtotal)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
       `, [pedidoId, it.pecaId, it.nomePeca, it.quantidade, it.precoUnitario, it.subtotal]);
     }
 

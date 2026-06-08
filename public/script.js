@@ -240,7 +240,9 @@ async function carregarsetores(setorFiltro = null) {
       const todosItens = peds.flatMap(p => p.itens);
       const itensAgrup = {};
       todosItens.forEach(it => {
-        const k = `${it.nomepecas} (${it.tamanho})`;
+        const nome = it.nomePeca || '—';
+        const size = it.tamanho ? ` (${it.tamanho})` : '';
+        const k = `${nome}${size}`;
         itensAgrup[k] = (itensAgrup[k] || 0) + it.quantidade;
       });
       const statusAtual = peds[peds.length - 1]?.status;
@@ -493,7 +495,7 @@ async function carregarDashboard() {
       </div>`).join('') ||
       '<div class="empty"><span class="ei">📋</span>Nenhum pedido ainda</div>';
 
-    const elC = document.getElementById('dash-peca');
+    const elC = document.getElementById('dash-cardapio');
     elC.innerHTML = pecas.filter(p => p.disponivel).slice(0, 8).map(p => `
       <div class="mini-row">
         <span>🛰️ ${p.nome}</span>
@@ -740,7 +742,7 @@ async function carregarPedidos() {
             <tr>
               <td><strong style="color:var(--red)">#${String(p.numeroPedido||'?').padStart(3,'0')}</strong></td>
               <td><strong>${p.cliente?.nome || '—'}</strong><br><small style="color:var(--muted)">${p.cliente?.telefone || ''}</small></td>
-              <td style="font-size:.76rem">${p.itens.map(it => `${it.quantidade}x ${it.nomepeca || '?'} `).join('<br>')}</td>
+              <td style="font-size:.76rem">${p.itens.map(it => `${it.quantidade}x ${it.nomePeca || it.nome_peca || '?'} ${it.tamanho ? `(${it.tamanho})` : ''} — ${R$(it.precoUnitario ?? it.preco_unitario ?? 0)}`).join('<br>')}</td>
               <td>${R$(p.subtotal)}</td><td>${R$(p.taxaEntrega)}</td>
               <td><strong style="color:var(--gold)">${R$(p.total)}</strong></td>
               <td style="font-size:.76rem">${(p.formaPagamento || '—').replace('_', ' ')}</td>
@@ -802,10 +804,9 @@ function recalc() {
   let sub = 0;
   document.querySelectorAll('#itens-lista .item-row').forEach(row => {
     const sel = row.querySelector('.ip');
-    const tam = row.querySelector('.it').value.toLowerCase();
     const qtd = parseInt(row.querySelector('.iq').value) || 0;
     const opt = sel.options[sel.selectedIndex];
-    const pc  = parseFloat(opt?.dataset || 0);
+    const pc  = parseFloat(opt?.dataset?.p || 0);
     const s   = pc * qtd;
     sub += s;
     row.querySelector('.is').textContent = R$(s);
@@ -837,6 +838,7 @@ async function salvarPedido() {
     itens.push({
       peca:      pid,
       quantidade: parseInt(row.querySelector('.iq').value) || 1,
+      tamanho:   'P',
     });
   });
 
