@@ -526,7 +526,7 @@ async function carregarpecas() {
           ${cpecas.map(p => `
             <tr>
               <td><strong>${p.nome}</strong></td>
-              <td><span class="badge b-cat">${p.categoria || 'tradicional'}</span></td>
+              <td><span class="badge b-cat">${p.categoria || ''}</span></td>
               <td><span class="badge ${p.disponivel ? 'b-on' : 'b-off'}">${p.disponivel ? '✅ Disponível' : '❌ Off'}</span></td>
               <td>${R$((() => { if (!p.precos) return 0; if (typeof p.precos === 'object') return p.precos.P ?? p.precos.M ?? p.precos.G ?? 0; try { const o = JSON.parse(p.precos); return o.P ?? o.M ?? o.G ?? 0; } catch { return 0; } })())}</td>
               <td><div style="display:flex;gap:5px"><button class="btn btn-ghost btn-sm" onclick="editarpeca('${p._id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="deletarpeca('${p._id}','${p.nome}')">🗑️</button></div></td>
@@ -547,7 +547,7 @@ function abrirpeca() {
   document.getElementById('m-peca-t').textContent = 'Nova peca';
   ['p-id','p-nome','p-pp']
     .forEach(id => document.getElementById(id).value = '');
-  document.getElementById('p-cat').value  = 'tradicional';
+  document.getElementById('p-cat').value  = '';
   document.getElementById('p-disp').value = 'true';
   abrir('m-peca');
 }
@@ -573,7 +573,7 @@ function editarpeca(id) {
   }
 
   document.getElementById('p-pp').value   = precoValor;
-  document.getElementById('p-cat').value  = p.categoria || 'tradicional';
+  document.getElementById('p-cat').value  = p.categoria || '';
   document.getElementById('p-disp').value = String(p.disponivel);
   abrir('m-peca');
 }
@@ -805,7 +805,7 @@ function recalc() {
     const tam = row.querySelector('.it').value.toLowerCase();
     const qtd = parseInt(row.querySelector('.iq').value) || 0;
     const opt = sel.options[sel.selectedIndex];
-    const pc  = parseFloat(opt?.dataset?.[tam] || 0);
+    const pc  = parseFloat(opt?.dataset || 0);
     const s   = pc * qtd;
     sub += s;
     row.querySelector('.is').textContent = R$(s);

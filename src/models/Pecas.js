@@ -42,7 +42,7 @@ const Peca = {
 
 
   //Adiciona no menu uma nova Peca a partir das categorias
-  async create({ nome, precos = {}, disponivel = true, categoria = 'tradicional' }) {
+  async create({ nome, precos = {}, disponivel = true, categoria = '' }) {
     await ready;  //Executa quando o banco de dados estiver conectado, para evitar erros
     const info = run(
       'INSERT INTO pecas (nome, precos, disponivel, categoria) VALUES (?, ?, ?, ?)',

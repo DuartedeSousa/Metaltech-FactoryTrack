@@ -27,7 +27,6 @@ function formatarPedido(row, itens = []) { // Recebe row e um array com os itens
       _id:           it.id,
       peca:         it.peca_id,
       nomePeca:     it.nome_peca,
-      tamanho:       it.tamanho,
       quantidade:    it.quantidade,
       precoUnitario: it.preco_unitario,
       subtotal:      it.subtotal,
@@ -39,7 +38,7 @@ function formatarPedido(row, itens = []) { // Recebe row e um array com os itens
     troco:          row.troco,
     status:         row.status,
     observacoes:    row.observacoes,
-    mesa:           row.mesa,
+    setor:           row.setor,
     origem:         row.origem,
     gestor:         row.gestor_id,
     createdAt:      row.created_at,
@@ -72,7 +71,7 @@ const Pedido = { // Variável pedido recebe:
   },
 
   // De forma assíncrona cria um novo pedido
-  async create({ clienteId, itens, taxaEntrega = 0, formaPagamento, troco = 0, observacoes = '', mesa = null, origem = 'balcao', gestorId = null }) {
+  async create({ clienteId, itens, taxaEntrega = 0, formaPagamento, troco = 0, observacoes = '', setor = null, origem = 'balcao', gestorId = null }) {
     await ready;
 
     const Peca = require('./Pecas');
@@ -83,14 +82,13 @@ const Pedido = { // Variável pedido recebe:
       const peca = await Peca.findById(item.peca);
       if (!peca) throw new Error(`Peça ID ${item.peca} não encontrada`);
 
-      const preco   = peca.precos[item.tamanho] || 0;
+      const preco   = peca.precos || 0;
       const subItem = preco * item.quantidade;
       subtotal     += subItem;
 
       itensProcessados.push({
         pecaId:       peca.id,
         nomePeca:     peca.nome,
-        tamanho:       item.tamanho,
         quantidade:    item.quantidade,
         precoUnitario: preco,
         subtotal:      subItem,
@@ -104,19 +102,19 @@ const Pedido = { // Variável pedido recebe:
     const infoPedido = run(`
       INSERT INTO pedidos
         (numero_pedido, cliente_id, subtotal, taxa_entrega, total,
-         forma_pagamento, troco, observacoes, mesa, origem, garcom_id)
+         forma_pagamento, troco, observacoes, setor, origem, gestor_id)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `, [numeroPedido, clienteId, subtotal, taxaEntrega || 0, total,
-        formaPagamento, troco || 0, observacoes, mesa, origem, gestorId]);
+        formaPagamento, troco || 0, observacoes, setor, origem, gestorId]);
 
     const pedidoId = infoPedido.lastInsertRowid;
 
     for (const it of itensProcessados) {
       run(`
         INSERT INTO itens_pedidos
-          (pedido_id, peca_id, nome_peca, tamanho, quantidade, preco_unitario, subtotal)
+          (pedido_id, peca_id, nome_peca, quantidade, preco_unitario, subtotal)
         VALUES (?, ?, ?, ?, ?, ?, ?)
-      `, [pedidoId, it.pecaId, it.nomePeca, it.tamanho, it.quantidade, it.precoUnitario, it.subtotal]);
+      `, [pedidoId, it.pecaId, it.nomePeca, it.quantidade, it.precoUnitario, it.subtotal]);
     }
 
     return this.findById(pedidoId);
